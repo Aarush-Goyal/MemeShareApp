@@ -10,14 +10,19 @@ const MemeList = ({ user }) => {
 	// 	setMemes([...memes, { user }]);
 	// }, []);
 
-	useEffect(async () => {
-		try {
-			const res = await axios.get('/memes');
-			res.data.map((meme) => setMemes([...memes, {meme}]))
-			setMemes([...memes, { user }])
-		} catch (error) {
-			console.error(error)
-		}
+	// useEffect(async () => {
+	// 	try {
+	// 		const res = await axios.get('/memes');
+	// 		res.data.map((meme) => setMemes([...memes, {meme}]))
+	// 		setMemes([...memes, { user }])
+	// 	} catch (error) {
+	// 		console.error(error)
+	// 	}
+	// })
+	
+	useEffect(() => {
+		axios.get('/memes').then(res => res.data).then(res => setMemes([...res.reverse()])).catch(err => console.log(err))
+		
 	})
 
 	console.log(memes)
@@ -25,10 +30,10 @@ const MemeList = ({ user }) => {
 		<div className='memelist'>
 			{memes.map((meme) => (
 				<Meme
-					key={meme.user._id}
-					name={meme.user.name}
-					caption={meme.user.caption}
-					url={meme.user.url}
+					key={meme._id}
+					name={meme.name}
+					caption={meme.caption}
+					imageURL={meme.url}
 				/>
 			))}
 		</div>

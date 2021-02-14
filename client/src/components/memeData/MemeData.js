@@ -21,14 +21,18 @@ const MemeData = ({ updateParentData }) => {
 		e.preventDefault();
 
 		// post request to backend
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		};
-		const response = await axios.post('/memes', userData, config);
-		console.log(response);
-		updateParentData(response);
+		try {
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			};
+			const response = await axios.post('/memes', userData, config);
+			console.log(response);
+			updateParentData(response);	
+		} catch(err) {
+			console.error(err);
+		}
 	};
 
 	return (
@@ -36,7 +40,7 @@ const MemeData = ({ updateParentData }) => {
 			<h1>Meme Stream</h1>
 			<form className='container' onSubmit={onSubmit}>
 				<div className='input'>
-					<label>Meme Owner</label>
+					<label className='label'>Name:-</label>
 					<input
 						type='text'
 						placeholder='Enter Your Full name'
@@ -46,7 +50,7 @@ const MemeData = ({ updateParentData }) => {
 					/>
 				</div>
 				<div className='input'>
-					<label>Caption</label>
+					<label className='label_1'>Caption:-</label>
 					<input
 						type='text'
 						placeholder='Be creative with the caption'
@@ -56,7 +60,7 @@ const MemeData = ({ updateParentData }) => {
 					/>
 				</div>
 				<div className='input'>
-					<label>Meme URL</label>
+					<label className='label_2'>URL:-</label>
 					<input
 						type='text'
 						placeholder='Enter url of your meme here'
@@ -65,7 +69,7 @@ const MemeData = ({ updateParentData }) => {
 						onChange={onChange}
 					/>
 				</div>
-				<input type='submit' value='Submit Meme' />
+				<input className="button" type='submit' value='Submit Meme' />
 			</form>
 			{redirect ? <Redirect to='/memes' /> : null}
 		</div>

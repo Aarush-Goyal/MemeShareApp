@@ -39,6 +39,14 @@ app.post('/memes', async(req, res) => {
     const { name, caption, url } = req.body;
     console.log(name, caption, url);
 
+    const isName = await Meme.findOne({name})
+    const isCaption = await Meme.findOne({caption})
+    const isUrl = await Meme.findOne({url})
+
+    if(isName && isCaption && isUrl) {
+        res.status(409).json({ msg: 'Meme exists already.'})
+    }
+
     try {
         const meme = await new Meme({
             name,

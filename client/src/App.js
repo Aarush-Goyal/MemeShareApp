@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
 import MemeList from './components/Meme/MemeList';
 import MemeData from './components/memeData/MemeData';
+import './components/memeData/memeData.css';
 function App() {
 	const [userData, setUserData] = useState({
 		_id: '',
@@ -25,8 +25,8 @@ function App() {
 	return (
 		<div className='App'>
 			<Router>
-				<Link to='/'>MemeShare</Link>
-				<Link to='/memes'>Memes</Link>
+				<Link className='button_1' to='/'>Meme Share</Link>
+				<Link className='button_1' to='/memes'>Memes</Link>
 				<Switch>
 					<Route path='/' exact>
 						<MemeData updateParentData={updateData} />
